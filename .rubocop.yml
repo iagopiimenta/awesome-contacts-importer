@@ -3,9 +3,19 @@ require:
 
 AllCops:
   NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
 
 Style/Documentation:
   Enabled: false
 
 Rails/FilePath:
   Enabled: false
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context', 'define', 'included', 'before', 'configure', 'setup']
+
+Layout/LineLength:
+  Exclude:
+    - 'config/initializers/**/*'
