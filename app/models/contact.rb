@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'bcrypt'
 
 class Contact < ApplicationRecord
@@ -7,6 +8,7 @@ class Contact < ApplicationRecord
   VALID_NAME_REGEX = /\A[0-9a-zA-Z -]+\z/.freeze
 
   belongs_to :user
+  belongs_to :contact_import
 
   attr_accessor :credit_card
 
@@ -37,6 +39,6 @@ class Contact < ApplicationRecord
   private
 
   def credit_card_valid?
-    errors.add(:credit_card, "is invalid") if credit_card_hash.blank?
+    errors.add(:credit_card, 'is invalid') if credit_card_hash.blank?
   end
 end
