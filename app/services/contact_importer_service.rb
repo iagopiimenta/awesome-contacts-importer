@@ -10,10 +10,20 @@ class ContactImporterService
   def call
     @contact_import.contacts.create!(contact_params)
   rescue ActiveRecord::RecordInvalid => e
-    # TODO: save log
+    save_failed(e)
   end
 
   private
+
+  def save_failed(e)
+    @contact_import.contact_faileds.find_or_create_by!(
+      user_id: @contact_import.user_id,
+      line_number: @line_number
+    ) do |contact_failed|
+      # TODO: use habtm association
+      contact_failed.messages = e.record.errors.full_messages
+    end
+  end
 
   def contact_params
     fields_order = @contact_import.fields_order || %w[name date_of_birth phone address credit_card email]
