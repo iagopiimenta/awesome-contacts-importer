@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ContactImportProgressChecker
-  def initialize(contact_import, enqueue = false, previous_total_processed = 0, attempts = 0)
+  def initialize(contact_import, enqueue: false, previous_total_processed: 0, attempts: 0)
     @contact_import = contact_import
     @enqueue = enqueue
     @previous_total_processed = previous_total_processed

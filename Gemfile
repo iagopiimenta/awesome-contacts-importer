@@ -61,6 +61,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'rubocop-rails', require: false
 
+gem 'activestorage-validator'
 gem 'bcrypt'
 gem 'credit_card_validations'
 gem 'devise'

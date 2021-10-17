@@ -15,18 +15,18 @@ class ContactImporterService
 
   private
 
-  def save_failed(e)
+  def save_failed(exception)
     @contact_import.contact_faileds.find_or_create_by!(
       user_id: @contact_import.user_id,
       line_number: @line_number
     ) do |contact_failed|
       # TODO: use habtm association
-      contact_failed.messages = e.record.errors.full_messages
+      contact_failed.messages = exception.record.errors.full_messages
     end
   end
 
   def contact_params
-    fields_order = @contact_import.fields_order || %w[name date_of_birth phone address credit_card email]
+    fields_order = @contact_import.fields_order
     params = fields_order.zip(@contact_data).to_h
 
     params.merge(user_id: @contact_import.user_id)

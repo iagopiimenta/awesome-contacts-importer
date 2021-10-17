@@ -1,0 +1,19 @@
+<h1>ContactImports#create</h1>
+<p>Find me in app/views/contact_imports/create.html.erb</p>
+
+<%= form_for @contact_import do |f| %>
+  <% if @contact_import.errors.any? %>
+    <ul>
+      <% @contact_import.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% ContactImport::MAPPING_FIELDS.each do %>
+    <%= f.select(:fields_order, ContactImport::MAPPING_FIELDS, {:prompt => 'Select'}, {'name'=>"contact_import[fields_order][]"}) %>
+  <% end %>
+
+  <%= f.file_field :contacts_file %>
+  <%= f.submit "Submit" %>
+<% end %>
