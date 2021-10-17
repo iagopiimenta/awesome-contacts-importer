@@ -10,8 +10,6 @@ class Contact < ApplicationRecord
   belongs_to :user
   belongs_to :contact_import
 
-  attr_accessor :credit_card
-
   validates :email, email: true
   validates :email, presence: true, uniqueness: { scope: :user_id }, unless: -> { errors.include?(:email) }
   validates :name, format: { with: VALID_NAME_REGEX }, presence: true

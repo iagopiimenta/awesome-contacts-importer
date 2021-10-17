@@ -5,4 +5,6 @@ class ContactImport < ApplicationRecord
 
   belongs_to :user
   has_many :contacts, dependent: :nullify
+
+  has_one_attached :contacts_file
 end
