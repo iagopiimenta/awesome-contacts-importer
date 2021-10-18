@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Listing failed contacts</h1>
+
+      <p>Contact import #<%= link_to(@contact_import.id, contact_import_path(@contact_import)) %></p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Line number</th>
+            <th>Reasons</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @contact_faileds.each do |contact_failed| %>
+            <tr>
+              <td><%= contact_failed.line_number %></td>
+              <td><%= contact_failed.messages.join('; ') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @contact_faileds, theme: 'bootstrap-5' %>
+    </div>
+  </div>
+</div>

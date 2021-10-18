@@ -1,0 +1,19 @@
+<% if user_signed_in? %>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <%= link_to 'Imports', contact_imports_path, class: "nav-link #{controller_name == 'contact_imports' ? 'active' : ''}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Contacts', contacts_path, class: "nav-link #{controller_name == 'contacts' ? 'active' : ''}" %>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          <%= link_to "Logout", destroy_user_session_path, method: :delete , class: 'text-decoration-none' %>
+        </span>
+      </div>
+    </div>
+  </nav>
+<% end %>

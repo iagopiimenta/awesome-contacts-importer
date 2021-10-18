@@ -1,19 +1,34 @@
-<h1>ContactImports#create</h1>
-<p>Find me in app/views/contact_imports/create.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>New Import</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= form_for @contact_import, html: { class: 'form mt-3' } do |f| %>
+        <% if @contact_import.errors.any? %>
+          <div class="alert alert-danger" role="alert">
+            <ul class="mb-0">
+              <% @contact_import.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-<%= form_for @contact_import do |f| %>
-  <% if @contact_import.errors.any? %>
-    <ul>
-      <% @contact_import.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <% ContactImport::MAPPING_FIELDS.each.with_index do |field, index| %>
+          <div class="mb-3">
+            <label class="form-label"><%= "Select field to match #{index + 1} column" %></label>
+            <%= f.select(:fields_order, ContactImport::MAPPING_FIELDS, { selected: @contact_import.fields_order.try(:[], index) }, { class: 'form-select', name: "contact_import[fields_order][]" }) %>
+          </div>
+        <% end %>
+
+        <%= f.file_field :contacts_file, { class: 'form-control mb-3' } %>
+        <%= f.submit "Submit", { class: 'btn btn-success' } %>
       <% end %>
-    </ul>
-  <% end %>
+    </div>
+  </div>
+</div>
 
-  <% ContactImport::MAPPING_FIELDS.each do %>
-    <%= f.select(:fields_order, ContactImport::MAPPING_FIELDS, {:prompt => 'Select'}, {'name'=>"contact_import[fields_order][]"}) %>
-  <% end %>
 
-  <%= f.file_field :contacts_file %>
-  <%= f.submit "Submit" %>
-<% end %>

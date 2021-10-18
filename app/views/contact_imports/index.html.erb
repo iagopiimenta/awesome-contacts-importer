@@ -1,2 +1,39 @@
-<h1>ContactImports#index</h1>
-<p>Find me in app/views/contact_imports/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Listing Imports</h1>
+
+      <%= link_to('New import', new_contact_import_path, class: 'btn btn-success mt-3 mb-3') %>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Imported at</th>
+            <th>Status</th>
+            <th>Total rows</th>
+            <th>Success</th>
+            <th>Failed</th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @contact_imports.each do |contact_import| %>
+            <tr>
+              <td><%= contact_import.id %></td>
+              <td><%= contact_import.created_at.iso8601 %></td>
+              <td><%= contact_import.status %></td>
+              <td><%= contact_import.total_rows %></td>
+              <td><%= contact_import.contacts_count %></td>
+              <td><%= contact_import.contact_faileds_count %></td>
+              <td><%= link_to "Show", contact_import %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @contact_imports, theme: 'bootstrap-5' %>
+    </div>
+  </div>
+</div>

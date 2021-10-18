@@ -3,9 +3,14 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :contact_imports
-  devise_for :users
-  root to: 'contact_imports#index'
+  resources :contacts
+  resources :contact_imports do
+    resources :contacts, only: [:index]
+    resources :contact_faileds, only: [:index]
+  end
 
+  devise_for :users
+
+  root to: 'contact_imports#index'
   mount Sidekiq::Web => '/sidekiq'
 end

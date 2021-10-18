@@ -61,9 +61,12 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'rubocop-rails', require: false
 
+gem 'activerecord-precounter'
 gem 'activestorage-validator'
 gem 'bcrypt'
+gem 'bootstrap5-kaminari-views'
 gem 'credit_card_validations'
 gem 'devise'
 gem 'email_validator', require: 'email_validator/strict'
+gem 'kaminari'
 gem 'sidekiq'

@@ -2,11 +2,13 @@
 
 class ContactImportsController < ApplicationController
   def index
-    @contact_imports = current_user.contact_imports
+    @contact_imports = current_user.contact_imports.order(:created_at).page(params[:page])
+    ActiveRecord::Precounter.new(@contact_imports).precount(:contacts)
+    ActiveRecord::Precounter.new(@contact_imports).precount(:contact_faileds)
   end
 
   def show
-    current_user.contact_imports.find(params[:id])
+    @contact_import = current_user.contact_imports.find(params[:id])
   end
 
   def new

@@ -3,7 +3,7 @@
 require 'csv'
 
 class ContactListImporterService
-  def initialize(contact_import:, async: false, csv_options: { col_sep: ';' })
+  def initialize(contact_import:, async: false, csv_options: { col_sep: ',' })
     @contact_import = contact_import
     @csv_options = csv_options
     @async = async

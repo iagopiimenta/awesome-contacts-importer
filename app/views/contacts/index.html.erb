@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Listing Contacts</h1>
+
+      <% if @contact_import %>
+        <p>Contact import #<%= link_to(@contact_import.id, contact_import_path(@contact_import)) %></p>
+      <% end %>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Date of birth</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Card Issuer</th>
+            <th>Last digits</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @contacts.each do |contact| %>
+            <tr>
+              <td><%= contact.id %></td>
+              <td><%= contact.name %></td>
+              <td><%= contact.date_of_birth.strftime('%Y %B %e') %></td>
+              <td><%= contact.phone %></td>
+              <td><%= contact.address %></td>
+              <td><%= contact.credit_card_issuer %></td>
+              <td><%= contact.credit_card_last %></td>
+              <td><%= contact.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @contacts, theme: 'bootstrap-5' %>
+    </div>
+  </div>
+</div>
