@@ -11,6 +11,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby 2.7
@@ -21,4 +31,11 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
+        bundle exec rails db:create db:migrate
         bundle exec rspec
+      env:
+        DATABASE_URL: postgres://postgres:postgres@postgres
+    - name: Run linters
+      run: |
+        bin/rubocop --parallel
+
