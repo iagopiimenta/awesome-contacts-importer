@@ -8,4 +8,5 @@ class User < ApplicationRecord
 
   has_many :contact_imports, dependent: :delete_all
   has_many :contacts, dependent: :delete_all
+  has_many :contact_faileds, dependent: :delete_all
 end

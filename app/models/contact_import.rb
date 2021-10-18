@@ -27,6 +27,7 @@ class ContactImport < ApplicationRecord
   private
 
   def fields_order_valid?
+    return if fields_order.blank?
     return if (fields_order & MAPPING_FIELDS).size == MAPPING_FIELDS.size && fields_order.size == fields_order.uniq.size
 
     errors.add(:fields_order, 'is invalid')
