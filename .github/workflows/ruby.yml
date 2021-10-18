@@ -31,16 +31,25 @@ jobs:
       with:
         ruby-version: 2.7.x
         bundler-cache: true
-    - name: Build and test with rspec
+    - name: Install dependencies
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
+    - name: Run Lint
+      run: bundle exec rubocop --parallel
+    - name: Setup Code Climate test-reporter
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
+    - name: Run tests
+      run: |
         bundle exec rails db:create db:migrate
         bundle exec rspec
       env:
         RAILS_ENV: test
         DATABASE_URL: postgres://postgres:postgres@localhost
-    - name: Run linters
+    - name: Publish code coverage
       run: |
-        bundle exec rubocop --parallel
-
+        export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+        ./cc-test-reporter after-build -r ${{secrets.CC_TEST_REPORTER_ID}}
