@@ -33,3 +33,7 @@ bundle exec sidekiq
 ```bash
 bundle exec rails s
 ```
+
+## CSV for testing
+
+A CSV for testing is available at `spec/fixtures/files/contact_list.csv`.
