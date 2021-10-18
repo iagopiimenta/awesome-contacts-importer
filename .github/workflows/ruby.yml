@@ -14,7 +14,10 @@ jobs:
     services:
       postgres:
         image: postgres
+        ports:
+          - 5432:5432
         env:
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
@@ -27,6 +30,7 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.7.x
+        bundler-cache: true
     - name: Build and test with rspec
       run: |
         gem install bundler
@@ -34,8 +38,9 @@ jobs:
         bundle exec rails db:create db:migrate
         bundle exec rspec
       env:
-        DATABASE_URL: postgres://postgres:postgres@postgres
+        RAILS_ENV: test
+        DATABASE_URL: postgres://postgres:postgres@localhost
     - name: Run linters
       run: |
-        bin/rubocop --parallel
+        bundle exec rubocop --parallel
 
