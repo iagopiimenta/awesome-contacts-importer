@@ -7,7 +7,7 @@ RSpec.describe ContactListImporterService do
     let!(:contact_import) do
       ContactImport.create!(fields_order: ContactImport::MAPPING_FIELDS, user: user) do |contact_import|
         contact_import.contacts_file.attach(
-          io: file_fixture("contact_list.csv").open,
+          io: file_fixture('contact_list.csv').open,
           filename: 'test.csv',
           content_type: 'text/csv'
         )
